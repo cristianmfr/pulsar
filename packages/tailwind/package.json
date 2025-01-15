@@ -1,0 +1,12 @@
+{
+  "name": "@pulsar/tailwind",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./tailwind.config.ts"
+  },
+  "devDependencies": {
+    "@pulsar/tsconfig": "*",
+    "tailwindcss": "^3.4.1"
+  }
+}
