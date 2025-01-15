@@ -2,6 +2,8 @@ import { AppSidebar } from '@/components/templates/sidebar'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/organisms/sidebar'
 import { useNavigate } from 'react-router'
 import { useAuth } from '@/shared/hooks/use-auth'
+import { useQuery } from '@apollo/client'
+import { GET_ME } from '../api/queries/get-me'
 
 interface MainLayoutProps {
   children: React.ReactNode
@@ -10,10 +12,11 @@ interface MainLayoutProps {
 export default function MainLayout({ children }: MainLayoutProps) {
   const navigate = useNavigate()
   const { signOut } = useAuth()
+  const { data: me } = useQuery(GET_ME)
 
   const userNav = {
-    name: 'John Doe',
-    email: 'john.doe@example.com',
+    name: me?.getMe.name || '',
+    email: me?.getMe.email || '',
     avatar: '',
   }
 

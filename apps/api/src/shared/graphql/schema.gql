@@ -3,29 +3,19 @@
 # ------------------------------------------------------
 
 type Permission {
-  """
-  The unique identifier of the entity
-  """
+  """The unique identifier of the entity"""
   id: String!
 
-  """
-  The date and time the entity was created
-  """
+  """The date and time the entity was created"""
   createdAt: DateTime!
 
-  """
-  The date and time the entity was last updated
-  """
+  """The date and time the entity was last updated"""
   updatedAt: DateTime!
 
-  """
-  The name of the permission
-  """
+  """The name of the permission"""
   name: String!
 
-  """
-  The description of the permission
-  """
+  """The description of the permission"""
   description: String
 }
 
@@ -35,87 +25,55 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Role {
-  """
-  The unique identifier of the entity
-  """
+  """The unique identifier of the entity"""
   id: String!
 
-  """
-  The date and time the entity was created
-  """
+  """The date and time the entity was created"""
   createdAt: DateTime!
 
-  """
-  The date and time the entity was last updated
-  """
+  """The date and time the entity was last updated"""
   updatedAt: DateTime!
 
-  """
-  The name of the role
-  """
+  """The name of the role"""
   name: String!
 
-  """
-  The description of the role
-  """
+  """The description of the role"""
   description: String
 
-  """
-  The permissions of the role
-  """
+  """The permissions of the role"""
   permissions: [Permission!]!
 }
 
 type Customer {
-  """
-  The unique identifier of the entity
-  """
+  """The unique identifier of the entity"""
   id: String!
 
-  """
-  The date and time the entity was created
-  """
+  """The date and time the entity was created"""
   createdAt: DateTime!
 
-  """
-  The date and time the entity was last updated
-  """
+  """The date and time the entity was last updated"""
   updatedAt: DateTime!
 
-  """
-  The name of the customer
-  """
+  """The name of the customer"""
   name: String!
 
-  """
-  The email of the customer
-  """
+  """The email of the customer"""
   email: String!
 
-  """
-  The phone of the customer
-  """
+  """The phone of the customer"""
   phone: String
 
-  """
-  The document of the customer
-  """
+  """The document of the customer"""
   document: String!
 
-  """
-  The status of the customer
-  """
+  """The status of the customer"""
   status: CustomerStatus!
 
-  """
-  The user of the customer
-  """
+  """The user of the customer"""
   user: User!
 }
 
-"""
-The status of the customer
-"""
+"""The status of the customer"""
 enum CustomerStatus {
   ACTIVE
   INACTIVE
@@ -124,161 +82,103 @@ enum CustomerStatus {
 }
 
 type User {
-  """
-  The unique identifier of the entity
-  """
+  """The unique identifier of the entity"""
   id: String!
 
-  """
-  The date and time the entity was created
-  """
+  """The date and time the entity was created"""
   createdAt: DateTime!
 
-  """
-  The date and time the entity was last updated
-  """
+  """The date and time the entity was last updated"""
   updatedAt: DateTime!
 
-  """
-  The name of the user
-  """
+  """The name of the user"""
   name: String!
 
-  """
-  The email address of the user
-  """
+  """The email address of the user"""
   email: String!
 
-  """
-  The phone number of the user
-  """
+  """The phone number of the user"""
   phone: String
 
-  """
-  The document of the user
-  """
+  """The document of the user"""
   document: String!
 
-  """
-  The token of the user
-  """
+  """The token of the user"""
   token: String
 
-  """
-  The avatar of the user
-  """
+  """The avatar of the user"""
   avatar: String
 
-  """
-  The status of the user
-  """
+  """The status of the user"""
   status: UserStatus!
 
-  """
-  The role of the user
-  """
+  """The role of the user"""
   role: Role!
 
-  """
-  The customers of the user
-  """
+  """The customers of the user"""
   customers: [Customer!]
 }
 
-"""
-The status of the user
-"""
+"""The status of the user"""
 enum UserStatus {
   ACTIVE
   BLOCKED
 }
 
 type Auth {
-  """
-  User logged in
-  """
+  """User logged in"""
   user: User!
 
-  """
-  Session access token
-  """
+  """Session access token"""
   accessToken: String!
 }
 
 type Transaction {
-  """
-  The unique identifier of the entity
-  """
+  """The unique identifier of the entity"""
   id: String!
 
-  """
-  The date and time the entity was created
-  """
+  """The date and time the entity was created"""
   createdAt: DateTime!
 
-  """
-  The date and time the entity was last updated
-  """
+  """The date and time the entity was last updated"""
   updatedAt: DateTime!
 
-  """
-  Transaction type
-  """
+  """Transaction type"""
   type: TransactionType!
 
-  """
-  Transaction amount
-  """
+  """Transaction amount"""
   amount: Float!
 
-  """
-  Transaction description
-  """
+  """Transaction description"""
   description: String!
 
-  """
-  Transaction user
-  """
+  """Transaction user"""
   user: User!
 }
 
-"""
-The type of the transaction
-"""
+"""The type of the transaction"""
 enum TransactionType {
   DEPOSIT
   WITHDRAW
 }
 
 type TransferKey {
-  """
-  The unique identifier of the entity
-  """
+  """The unique identifier of the entity"""
   id: String!
 
-  """
-  The date and time the entity was created
-  """
+  """The date and time the entity was created"""
   createdAt: DateTime!
 
-  """
-  The date and time the entity was last updated
-  """
+  """The date and time the entity was last updated"""
   updatedAt: DateTime!
 
-  """
-  The key to be used for transfer
-  """
+  """The key to be used for transfer"""
   key: String!
 
-  """
-  Whether the key is active
-  """
+  """Whether the key is active"""
   active: Boolean!
 
-  """
-  The user associated with the key
-  """
+  """The user associated with the key"""
   user: User!
 }
 
@@ -319,223 +219,143 @@ type Mutation {
 }
 
 input SignInDto {
-  """
-  Email of the user
-  """
+  """Email of the user"""
   email: String!
 
-  """
-  Password of the user
-  """
+  """Password of the user"""
   normalizedPassword: String!
 }
 
 input CreateUserDto {
-  """
-  The name of the user
-  """
+  """The name of the user"""
   name: String!
 
-  """
-  The email address of the user
-  """
+  """The email address of the user"""
   email: String!
 
-  """
-  The phone number of the user
-  """
+  """The phone number of the user"""
   phone: String
 
-  """
-  The document of the user
-  """
+  """The document of the user"""
   document: String!
 
-  """
-  The token of the user
-  """
+  """The token of the user"""
   token: String
 
-  """
-  The status of the user
-  """
+  """The status of the user"""
   status: UserStatus!
 
-  """
-  The password of the user
-  """
+  """The password of the user"""
   password: String!
 
-  """
-  The role id of the user
-  """
+  """The role id of the user"""
   roleId: ID!
 }
 
 input CreatePermissionDto {
-  """
-  The name of the permission
-  """
+  """The name of the permission"""
   name: String!
 
-  """
-  The description of the permission
-  """
+  """The description of the permission"""
   description: String
 }
 
 input UpdatePermissionDto {
-  """
-  The name of the permission
-  """
+  """The name of the permission"""
   name: String
 
-  """
-  The description of the permission
-  """
+  """The description of the permission"""
   description: String
 
-  """
-  The id of the permission
-  """
+  """The id of the permission"""
   id: String!
 }
 
 input CreateRoleDto {
-  """
-  The name of the role
-  """
+  """The name of the role"""
   name: String!
 
-  """
-  The description of the role
-  """
+  """The description of the role"""
   description: String
 
-  """
-  The permissions of the role
-  """
+  """The permissions of the role"""
   permissions: [ID!]!
 }
 
 input UpdateRoleDto {
-  """
-  The name of the role
-  """
+  """The name of the role"""
   name: String
 
-  """
-  The description of the role
-  """
+  """The description of the role"""
   description: String
 
-  """
-  The permissions of the role
-  """
+  """The permissions of the role"""
   permissions: [ID!]
 
-  """
-  The id of the role
-  """
+  """The id of the role"""
   id: ID!
 }
 
 input CreateTransactionDto {
-  """
-  The description of the transaction
-  """
+  """The description of the transaction"""
   description: String!
 
-  """
-  The type of the transaction
-  """
+  """The type of the transaction"""
   type: TransactionType!
 
-  """
-  The amount of the transaction
-  """
+  """The amount of the transaction"""
   amount: Float!
 }
 
 input UpdateTransactionDto {
-  """
-  The description of the transaction
-  """
+  """The description of the transaction"""
   description: String
 
-  """
-  The type of the transaction
-  """
+  """The type of the transaction"""
   type: TransactionType
 
-  """
-  The amount of the transaction
-  """
+  """The amount of the transaction"""
   amount: Float
 
-  """
-  The id of the transaction
-  """
+  """The id of the transaction"""
   id: ID!
 }
 
 input CreateCustomerDto {
-  """
-  The name of the customer
-  """
+  """The name of the customer"""
   name: String!
 
-  """
-  The email of the customer
-  """
+  """The email of the customer"""
   email: String!
 
-  """
-  The phone of the customer
-  """
+  """The phone of the customer"""
   phone: String
 
-  """
-  The document of the customer
-  """
+  """The document of the customer"""
   document: String!
 }
 
 input UpdateCustomerDto {
-  """
-  The name of the customer
-  """
+  """The name of the customer"""
   name: String
 
-  """
-  The email of the customer
-  """
+  """The email of the customer"""
   email: String
 
-  """
-  The phone of the customer
-  """
+  """The phone of the customer"""
   phone: String
 
-  """
-  The document of the customer
-  """
+  """The document of the customer"""
   document: String
 
-  """
-  The id of the customer
-  """
+  """The id of the customer"""
   id: String!
 }
 
 input CreateTransferKeyDto {
-  """
-  The key to be used for transfer
-  """
+  """The key to be used for transfer"""
   key: String!
 
-  """
-  Whether the key is active
-  """
+  """Whether the key is active"""
   active: Boolean!
 }

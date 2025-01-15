@@ -1,11 +1,12 @@
+import { Button } from '@/components/atoms/button'
 import { Checkbox } from '@/components/atoms/checkbox'
 import { DataTable } from '@/components/molecules/data-table'
-import { TableHeader } from '@/components/organisms/table-header'
+import { MonthReceiptCard } from '@/components/templates/charts/month-receipt-card'
 import { GET_ALL_TRANSACTIONS } from '@/shared/api/queries/get-all-transactions'
 import { Transaction } from '@/shared/graphql/graphql'
 import { useSearchParams } from '@/shared/hooks/use-url-params'
 import { useQuery } from '@apollo/client'
-import { DotsThreeVertical } from '@phosphor-icons/react'
+import { DotsThreeVertical, Plus } from '@phosphor-icons/react'
 import { ColumnDef, createColumnHelper } from '@tanstack/react-table'
 import { useEffect } from 'react'
 
@@ -72,8 +73,17 @@ export default function TransactionsList() {
   }, [refetch])
 
   return (
-    <div>
-      <TableHeader handlePlusFunction={() => {}} />
+    <div className='flex flex-col gap-2'>
+      <div className='flex items-center justify-between'>
+        <h1 className='text-2xl font-bold'>Transações e recebimentos</h1>
+        <Button size='icon' variant='secondary' className='w-9 h-9'>
+          <Plus />
+        </Button>
+      </div>
+      <div className='grid grid-cols-2 gap-2'>
+        <MonthReceiptCard />
+        <MonthReceiptCard />
+      </div>
       <DataTable columns={columns} data={transactions?.getAllTransactions || []} />
     </div>
   )
