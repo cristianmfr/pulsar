@@ -1,63 +1,89 @@
 import { Button } from '@/components/atoms/button'
 import { Input } from '@/components/atoms/input'
 import { Label } from '@/components/atoms/label'
+import { useSearchParams } from '@/shared/hooks/use-url-params'
 import { cn } from '@/utils/cn'
-import { Link } from 'react-router'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
-import { LoginSchema, LoginType } from '../../types/login-schema'
-import { useAuth } from '@/shared/hooks/use-auth'
+import { useForm } from 'react-hook-form'
+import { RegisterSchema, RegisterType } from '../../types/register-schema'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@apollo/client'
+import { toast } from 'sonner'
+import { CREATE_CUSTOMER } from '@/shared/api/mutations/create-customer'
 
-export default function LoginPage() {
-  const { signIn, isLoggingIn } = useAuth()
+export const EmailAndPasswordStep = () => {
+  const { setParam } = useSearchParams()
+  const [sendVerificationEmail, { loading }] = useMutation(CREATE_CUSTOMER)
 
-  const { register, handleSubmit } = useForm<LoginType>({
-    resolver: zodResolver(LoginSchema),
+  const { register, handleSubmit } = useForm<RegisterType>({
+    resolver: zodResolver(RegisterSchema),
   })
 
-  const handleSignIn = (data: LoginType) => {
-    signIn({
-      email: data.email,
-      normalizedPassword: data.password,
+  const handleSendVerificationEmail = async (values: RegisterType) => {
+    await sendVerificationEmail({
+      variables: {
+        email: values.email,
+      },
     })
+      .then(({ data }) => {
+        if (data?.createCustomer) {
+          toast.success('Email enviado com sucesso')
+
+          sessionStorage.setItem('@register-step-one', JSON.stringify(values))
+
+          sessionStorage.setItem('email', data.createCustomer.email)
+
+          setParam('step', '2')
+        } else {
+          toast.error('Erro ao enviar email')
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   return (
-    <form onSubmit={handleSubmit(handleSignIn)} className={cn('flex flex-col gap-6')}>
+    <form onSubmit={handleSubmit(handleSendVerificationEmail)} className={cn('flex flex-col gap-6')}>
       <div className='flex flex-col items-center gap-2 text-center'>
-        <span className='flex flex-row gap-2 text-2xl font-bold'>
-          Bem-vindo de volta
-          <img src='/waving-hang.svg' alt='hang' width={30} height={30} />
-        </span>
+        <span className='flex flex-row gap-2 text-2xl font-bold'>Cadastre-se na plataforma</span>
         <p className='text-balance text-xs text-muted-foreground'>
-          Insira suas credenciais para fazer login na sua conta.
+          Insira suas credenciais para prosseguir com o cadastro.
         </p>
       </div>
       <div className='grid gap-6'>
+        <div className='grid gap-2'>
+          <Label htmlFor='name'>Nome completo</Label>
+          <Input id='name' type='text' placeholder='Nome completo' required {...register('name')} />
+        </div>
         <div className='grid gap-2'>
           <Label htmlFor='email'>Email</Label>
           <Input id='email' type='email' placeholder='email@exemplo.com.br' required {...register('email')} />
         </div>
         <div className='grid gap-2'>
-          <div className='flex items-center'>
-            <Label htmlFor='password'>Senha</Label>
-            <Link to='/auth/forgot-password' className='ml-auto text-sm underline-offset-4 hover:underline'>
-              Esqueceu sua senha?
-            </Link>
-          </div>
+          <Label htmlFor='password'>Senha</Label>
           <Input id='password' type='password' placeholder='***********' required {...register('password')} />
+        </div>{' '}
+        <div className='grid gap-2'>
+          <Label htmlFor='password'>Confirmar senha</Label>
+          <Input
+            id='confirmPassword'
+            type='password'
+            placeholder='***********'
+            required
+            {...register('confirmPassword')}
+          />
         </div>
-        {isLoggingIn ? (
+        {loading ? (
           <Button disabled>
             <Loader2 className='animate-spin' />
             Aguarde
           </Button>
         ) : (
-          <Button type='submit'>Entrar</Button>
+          <Button type='submit'>Prosseguir</Button>
         )}
         <div className='relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border'>
-          <span className='relative z-10 bg-background px-2 text-muted-foreground'>Ou faça login com</span>
+          <span className='relative z-10 bg-background px-2 text-muted-foreground'>Ou faça cadastro com</span>
         </div>
         <Button variant='outline' className='w-full'>
           <svg
@@ -73,14 +99,8 @@ export default function LoginPage() {
               fill='#fff'
             />
           </svg>
-          Login com Google
+          Cadastre-se com Google
         </Button>
-      </div>
-      <div className='flex flex-col text-center text-sm'>
-        Ainda não possuí uma conta?
-        <Link to='/auth/register' className='underline underline-offset-4'>
-          Faça seu cadastro
-        </Link>
       </div>
     </form>
   )
