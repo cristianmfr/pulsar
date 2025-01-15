@@ -1,0 +1,17 @@
+{
+  "name": "@pulsar/prettier",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "exports": {
+    ".": "./vitejs.js",
+    "./nest": "./nest.js"
+  },
+  "scripts": {
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\""
+  },
+  "devDependencies": {
+    "prettier": "3.4.2"
+  }
+}
