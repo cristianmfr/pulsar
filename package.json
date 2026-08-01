@@ -1,0 +1,23 @@
+{
+  "name": "pulsar",
+  "displayName": "Pulsar",
+  "description": "Neutral and colorful dark theme for VSCode.",
+  "version": "0.0.1",
+  "license": "MIT",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.125.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Pulsar",
+        "uiTheme": "vs-dark",
+        "path": "./themes/pulsar-dark-theme.json"
+      }
+    ]
+  }
+}
