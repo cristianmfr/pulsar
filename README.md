@@ -5,8 +5,8 @@
 Pulsar is inspired by the default Cursor IDE aesthetic — near-black backgrounds, soft pastel accents, and a carefully balanced syntax palette. Every color was tuned for legibility and visual comfort, so your eyes stay relaxed even after hours of coding.
 
 <p align="left">
-  <a href="https://marketplace.visualstudio.com/items?itemName=YOUR_PUBLISHER.pulsar">
-    <strong>Install Extension →</strong>
+  <a href="https://marketplace.visualstudio.com/items?itemName=cristianmfr.pulsar">
+    <strong>Install Extension</strong>
   </a>
 </p>
 

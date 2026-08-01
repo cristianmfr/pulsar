@@ -2,9 +2,14 @@
   "name": "pulsar",
   "displayName": "Pulsar",
   "description": "Neutral and colorful dark theme for VSCode.",
+  "publisher": "cristianmfr",
   "version": "0.0.1",
   "license": "MIT",
   "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cristianmfr/pulsar"
+  },
   "engines": {
     "vscode": "^1.125.0"
   },
